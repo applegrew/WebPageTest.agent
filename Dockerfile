@@ -17,6 +17,8 @@ FROM ubuntu:22.04 as production
 ### TIMEZONE INSIDE THE CONTAINER ###
 ARG TIMEZONE=UTC
 
+RUN apt update
+
 ### INSTALL APT-GET LIBS ###
 # DEBIAN_FRONTEND prevents interactive prompts while installing
 # set default timezone beforehand to avoid user interaction for tzdata package
