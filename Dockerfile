@@ -30,8 +30,8 @@ RUN ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime && DEBIAN_FRONTEND=nonin
     ttf-mscorefonts-installer fonts-noto fonts-roboto fonts-open-sans ffmpeg npm sudo curl xvfb
 
 ### Removing old nodejs and lib which prevents new nodejs to be installed
-RUN apt remove -y nodejs libnode72
-RUN apt autoremove -y
+RUN DEBIAN_FRONTEND=noninteractive apt remove -y nodejs libnode72
+RUN DEBIAN_FRONTEND=noninteractive apt autoremove -y
 ### UPDATE ###
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
