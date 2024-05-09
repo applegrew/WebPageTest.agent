@@ -17,13 +17,6 @@ FROM ubuntu:22.04 as production
 ### TIMEZONE INSIDE THE CONTAINER ###
 ARG TIMEZONE=UTC
 
-### Removing old nodejs if installed and lib
-RUN apt remove -y nodejs libnode72
-RUN apt autoremove -y
-### UPDATE ###
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt update
-
 ### INSTALL APT-GET LIBS ###
 # DEBIAN_FRONTEND prevents interactive prompts while installing
 # set default timezone beforehand to avoid user interaction for tzdata package
@@ -35,6 +28,12 @@ RUN ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime && DEBIAN_FRONTEND=nonin
     libtool libvorbis-dev pkg-config texi2html libtext-unidecode-perl python3-numpy python3-scipy perl \
     adb ethtool nodejs cmake git-core libsdl2-dev libva-dev libvdpau-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev texinfo wget \
     ttf-mscorefonts-installer fonts-noto fonts-roboto fonts-open-sans ffmpeg npm sudo curl xvfb
+
+### Removing old nodejs and lib which prevents new nodejs to be installed
+RUN apt remove -y nodejs libnode72
+RUN apt autoremove -y
+### UPDATE ###
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 ### UPDATE FONT CACHE ###
 RUN fc-cache -f -v
