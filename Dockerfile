@@ -36,6 +36,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt remove -y nodejs libnode72
 RUN DEBIAN_FRONTEND=noninteractive apt autoremove -y
 ### UPDATE ###
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN DEBIAN_FRONTEND=noninteractive apt install nodejs
 
 ### UPDATE FONT CACHE ###
 RUN fc-cache -f -v
