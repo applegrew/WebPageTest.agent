@@ -18,8 +18,10 @@ FROM ubuntu:22.04 as production
 ARG TIMEZONE=UTC
 
 ### UPDATE ###
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt update 
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt update
+### Removing old nodejs if installed and lib
+RUN apt remove libnode72 nodejs
 
 ### INSTALL APT-GET LIBS ###
 # DEBIAN_FRONTEND prevents interactive prompts while installing
@@ -37,7 +39,7 @@ RUN ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime && DEBIAN_FRONTEND=nonin
 RUN fc-cache -f -v
 
 ### INSTALLING LIGHTHOUSE FROM NPM ###
-RUN npm install -g lighthouse
+RUN npm install -g lighthouse@11.4.0
 
 ### INSTALLING CHROME BROWSER ###
 RUN curl -o /tmp/google-chrome-stable_current_amd64.deb  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
