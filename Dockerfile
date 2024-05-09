@@ -17,11 +17,12 @@ FROM ubuntu:22.04 as production
 ### TIMEZONE INSIDE THE CONTAINER ###
 ARG TIMEZONE=UTC
 
+### Removing old nodejs if installed and lib
+RUN apt remove nodejs libnode72
+RUN apt autoremove
 ### UPDATE ###
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt update
-### Removing old nodejs if installed and lib
-RUN apt remove libnode72 nodejs
 
 ### INSTALL APT-GET LIBS ###
 # DEBIAN_FRONTEND prevents interactive prompts while installing
