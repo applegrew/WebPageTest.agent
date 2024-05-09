@@ -18,8 +18,8 @@ FROM ubuntu:22.04 as production
 ARG TIMEZONE=UTC
 
 ### Removing old nodejs if installed and lib
-RUN apt remove nodejs libnode72
-RUN apt autoremove
+RUN apt remove -y nodejs libnode72
+RUN apt autoremove -y
 ### UPDATE ###
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt update
