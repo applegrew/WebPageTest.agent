@@ -10,6 +10,10 @@ Choose Ubuntu 22.04 CCOE image.
 
 These images come with CCOE network rules which prevent SSH and HTTP from being accessed outside office cloud VPN network (test reveals that SSH does not work over cloud VPN). So we need to create lower order rules from Networking tab in Azure to override those rules however, it seems there is some automation which deletes those rules after around 30mins. Also the image has iptables rules to restrict inbound HTTP (which is relevant only for WPT server, no change needed here for WPT agent).
 
+Goto: http://wpt-server.centralindia.cloudapp.azure.com/install/ to see if WPT server setup is correct.
+
+![Install check](Install%20Check.png)
+
 ## Build the Image
 
 Arguments can be passed at build time:
@@ -72,14 +76,14 @@ A typical run :
 
 Recommended run (uses default Netem traffic shaper):
 ```bash
-	sudo docker run -d \
-	      -e SERVER_URL="http://wpt-server.centralindia.cloudapp.azure.com/work/" \
-	      -e LOCATION="india-central-1" \
-	      -e NAME="India Central 1" \
-	      -e KEY="<location_key from wpt server /var/www/webpagetest/www/settings/settings.ini>"\
-	      --cap-add=NET_ADMIN \
-	      --init \
-	      wptagent
+sudo docker run -d \
+      -e SERVER_URL="http://wpt-server.centralindia.cloudapp.azure.com/work/" \
+      -e LOCATION="india-central-1" \
+      -e NAME="India Central 1" \
+      -e KEY="<location_key from wpt server /var/www/webpagetest/www/settings/settings.ini>"\
+      --cap-add=NET_ADMIN \
+      --init \
+      wptagent
 ```
 
 The above assumes the following settings in locations.ini on WPT server.
